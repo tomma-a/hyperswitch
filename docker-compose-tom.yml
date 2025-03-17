@@ -42,8 +42,6 @@ services:
 
   migration_runner:
     image: rust:latest
-    profiles:
-      - first
     command: "bash -c 'cargo install diesel_cli --no-default-features --features postgres && cargo install just && just migrate'"
     working_dir: /app
     networks:
@@ -53,6 +51,7 @@ services:
     environment:
       # format -> postgresql://DB_USER:DB_PASSWORD@HOST:PORT/DATABASE_NAME
       - DATABASE_URL=postgresql://db_user:db_pass@pg:5432/hyperswitch_db
+      - CARGO_HOME=/app/.cargo
   
   mailhog:
     image: mailhog/mailhog

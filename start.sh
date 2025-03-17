@@ -1,1 +1,1 @@
-docker compose -f docker-compose-tom.yml up down
+docker compose  -f docker-compose-tom.yml up -d

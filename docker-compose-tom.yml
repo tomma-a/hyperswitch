@@ -42,8 +42,11 @@ services:
 
   migration_runner:
     image: rust:latest
-    command: "bash -c 'cargo install diesel_cli --no-default-features --features postgres && cargo install just && just migrate'"
+    command: "bash -c 'cargo install diesel_cli --no-default-features --features postgres && cargo install just && export PATH=/app/.cargo/bin:$PATH && just migrate'"
     working_dir: /app
+    depends_on:
+      pg:
+        condition: service_healthy
     networks:
       - router_net
     volumes:
